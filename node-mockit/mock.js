@@ -99,6 +99,11 @@ function processRequest(request, script, callback){
         return;
     }
     if (script.request.headers) {
+        if (request.headers===undefined) {
+            callback(script.response.error);
+            console.log(script.name + ":invalid header "+ ppt + " missing");
+            return;
+        }
         for(var ppt in script.request.headers){
             var property = ppt.toLowerCase();
             var value = script.request.headers[ppt];
@@ -127,8 +132,14 @@ function processRequest(request, script, callback){
     }
     if (script.request.type=='body') {
         getPOST(request, function(data){
-            var body = JSON.parse(data);
-            validateDict(body, script, callback);
+            try{
+                var body = JSON.parse(data);
+                validateDict(body, script, callback);
+            }catch(e){
+                callback(script.response.error);
+                console.log(script.name + ":invalid body format with:" + data);
+                return;
+            }
         });
         return;
     }
