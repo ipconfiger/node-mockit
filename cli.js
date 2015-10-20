@@ -2,6 +2,7 @@
 
 var request = require('request');
 var program = require('commander');
+var fs = require('fs');
 var path = require('path');
 
 program
