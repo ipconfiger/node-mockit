@@ -13,8 +13,10 @@ program
 .parse(process.argv);
 
 if(program.test){
-    fp = fs.readFileSync("./scripts/test/js", 'utf8');
-    console.log(fp);
+    fp = path.resolve(__dirname, ./scripts/test/js);
+    console.log('path:' + fp)
+    ftxt = fs.readFileSync(fp, 'utf8');
+    console.log(ftxt);
     process.exit(0);
 }
 
