@@ -3,7 +3,7 @@ exports.config={
     url:"/test",
     request:{
         method:"POST",
-        headers:{Authorization:"Basic asdadasdasdasdasdasdasadsasdasd"},
+        headers:{Authorization:"Bearer 93d8b0977597062acb4f5d9b22f8ef78"},
         type:"body",
         data:{
             name:"alex",

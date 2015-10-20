@@ -4,6 +4,7 @@ var url = require("url");
 var querystring = require("querystring");
 
 var scripts = [];
+var script_base = process.argv[2];
 
 function getAllFiles(root) {
   var result = [], files = fs.readdirSync(root);
@@ -29,7 +30,7 @@ function loadScript(){
             delete require.cache[p];
         }
     }
-    var files = getAllFiles('./scripts');
+    var files = getAllFiles(script_base);
     for(var file in files){
         var path = files[file];
         var config = require(path);
@@ -51,7 +52,7 @@ function reloadChecker(){
 
 function checkFile(){
     var checktime=new Date().getTime();
-    var files = getAllFiles('./scripts');
+    var files = getAllFiles(script_base);
     var edited = [];
     files.filter(function(item, idx){
         var stat = fs.lstatSync(item);
@@ -147,6 +148,12 @@ function processRequest(request, script, callback){
         var objectUrl = url.parse(request.url);
 	    var objectQuery = querystring.parse(objectUrl.query);
         validateDict(objectQuery, script, callback);
+        return;
+    }
+    if (script.request.type=='redirect') {
+        var objectUrl = url.parse(request.url);
+        var objectQuery = querystring.parse(objectUrl.query);
+        console.log(objectQuery);
         return;
     }
 }
