@@ -13,7 +13,7 @@ program
 .parse(process.argv);
 
 if(program.test){
-    fp = fs.readFile("./scripts/test/js");
+    fp = fs.readFileSync("./scripts/test/js", 'utf8');
     console.log(fp);
     process.exit(0);
 }
