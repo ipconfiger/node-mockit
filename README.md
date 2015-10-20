@@ -9,12 +9,15 @@
 ##使用方法
 1. 安装nodejs （必须）
 2. sudo npm install https://github.com/ipconfiger/node-mockit.git -g
-3. 在scripts目录下增加配置脚本
-4. node mock.js 启动服务即可
+3. mkdir ./scripts
+3. cli -e > ./scripts/test.js
+4. mock -s ./scripts  即可启动mock服务端
 
-服务自己会检测配置脚本的变化，并且立即更新，所以不需要重启
+服务自己会检测配置脚本的变化，并且立即更新，所以修改了测试脚本后不需要重启
 
-用  node cli.js 脚本地址 服务根地址  就可以向服务地址提交指定脚本的请求，用于验证服务端实现
+用  cli -s 脚本地址 -h 服务根地址  就可以向服务地址提交指定脚本的请求，用于验证服务端实现
+比如 cli -s ./scripts -b http://127.0.0.1:25300
+
 
 ##配置文件说明：
 
@@ -58,3 +61,32 @@
 
 GET请求通过querystring发送数据
 
+##命令参数
+
+    mock -h
+
+    Usage: mock [options]
+
+    Options:
+
+      -h, --help           输出命令说明
+      -V, --version        输出版本号
+      -s,--scripts [type]  设定脚本所在目录，比如./scripts
+      -p,--port [type]     设定服务器工作目录，比如 25300
+      -l,--level [type]    设定请求验证级别0=不检测 1=只检测键 2=全检测 默认：1
+      
+
+
+---------------------------------------------------------------------------
+
+    cli --help
+
+    Usage: cli [options]
+
+    Options:
+
+      -h, --help          输出命令说明
+      -V, --version       输出版本号
+      -e,--example        输出example配置脚本
+      -s,--script [type]  设定脚本所在目录，比如./scripts
+      -b,--host [type]    设定服务器地址和端口 [http://127.0.0.1:25300]
