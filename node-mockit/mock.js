@@ -2,9 +2,29 @@ var http = require("http");
 var fs = require('fs');
 var url = require("url");
 var querystring = require("querystring");
+var program = require('commander');
 
 var scripts = [];
-var script_base = process.argv[2];
+
+program
+.version('0.0.1')
+.option('-s,--scripts [type]', 'Specify path of scripts [./scripts]', '')
+.option('-p,--port [type]', 'Specify working port [25300]', '25300')
+.option('-l,--level [type]', 'Specify result checking level 0=no checking 1=check only keys 2=full check[1]', '1')
+.parse(process.argv);
+
+var script_base = '';
+if (program.scripts == ''){
+    console.log('option -s, --script must specified!');
+    process.exit(1);
+}else{
+    script_base = program.scripts;
+}
+
+var working_port = parseInt(program.port);
+
+var checking_level = parseInt(program.level);
+
 
 function getAllFiles(root) {
   var result = [], files = fs.readdirSync(root);
@@ -159,6 +179,11 @@ function processRequest(request, script, callback){
 }
 
 function validateDict(requestDict, script, callback){
+    if (checking_level<1){
+        callback(script.response.success);
+        return;
+    }
+
     var tarDict = script.request.data;
     var error = [];
     for(var ppt in tarDict){
@@ -167,7 +192,9 @@ function validateDict(requestDict, script, callback){
             if (requestDict[ppt]==value) {
                 //正确的就什么都不做
             }else{
-                error.push(ppt+" needs "+ value+" but "+requestDict[ppt]+" got");
+                if (checking_level>1){
+                    error.push(ppt+" needs "+ value+" but "+requestDict[ppt]+" got");
+                }
             }
         }else{
             error.push(ppt+" required");
@@ -182,7 +209,7 @@ function validateDict(requestDict, script, callback){
 }
 
 reloadChecker();
-console.log("mock server starting at 127.0.0.1:25300");
+console.log("mock server starting at 0.0.0.0:" + working_port);
 http.createServer(function(request, response) {
     var script = routeToScript(request);
     if(script==null){
@@ -194,4 +221,4 @@ http.createServer(function(request, response) {
         prepareResponse(response, 200, 'application/json', data );
     })
 
-}).listen(25300);
+}).listen(working_port);
