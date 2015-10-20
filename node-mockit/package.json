@@ -1,0 +1,25 @@
+{
+  "name": "node-mockit",
+  "version": "0.0.1",
+  "preferGlobal" : true,
+  "description": "http protocal mock script make test easy",
+  "bin" : { 
+      "cli" : "./cli.js",
+      "mock" : "./mock.js"
+  },
+  "keywords": [
+    "mock",
+    "js",
+    "test"
+  ],
+  "author": "Alexander.Li",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ipconfiger/node-mockit/issues"
+  },
+  "homepage": "https://github.com/ipconfiger/node-mockit",
+  "dependencies" :{
+      "request" : "latest",
+      "commander" : "latest"
+  }
+}

@@ -2,6 +2,7 @@
 
 var request = require('request');
 var program = require('commander');
+var path = require('path');
 
 program
 .version('0.0.1')
@@ -20,7 +21,8 @@ if(program.host==''){
 }
 
 var modePath = program.script;
-var base = proram.host;
+modePath = path.resolve(process.cwd(), modePath);
+var base = program.host;
 
 function sendPost(){
 

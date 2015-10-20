@@ -5,6 +5,7 @@ var fs = require('fs');
 var url = require("url");
 var querystring = require("querystring");
 var program = require('commander');
+var path = require('path');
 
 var scripts = [];
 
@@ -21,6 +22,7 @@ if (program.scripts == ''){
     process.exit(1);
 }else{
     script_base = program.scripts;
+    script_base = path.resolve(process.cwd(), script_base);
 }
 
 var working_port = parseInt(program.port);
