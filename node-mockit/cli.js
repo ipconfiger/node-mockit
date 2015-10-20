@@ -1,15 +1,28 @@
 #!/usr/bin/env node
 
 var request = require('request');
+var program = require('commander');
 
-var modePath = process.argv[2];
-var base = process.argv[3];
+program
+.version('0.0.1')
+.option('-s,--script [type]', 'Specify path of script [./scripts/test.js]', '')
+.option('-h,--host [type]', 'Specify host path [http://127.0.0.1:25300]', '')
+.parse(process.argv);
+
+if(program.script==''){
+    console.log('Option -s, --script must specified');
+    process.exit(1);
+}
+
+if(program.host==''){
+    console.log('Option -h, --host must specified');
+    process.exit(1);
+}
+
+var modePath = program.script;
+var base = proram.host;
 
 function sendPost(){
-if(base==undefined){
-    console.log("参数缺失");
-    return;
-}
 
 var config = require(modePath);
 var options = {
