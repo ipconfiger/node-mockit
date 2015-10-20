@@ -8,7 +8,7 @@
 
 ##使用方法
 1. 安装nodejs （必须）
-2. 找个地方执行  git clone https://github.com/ipconfiger/node-mockit.git
+2. sudo npm install https://github.com/ipconfiger/node-mockit.git -g
 3. 在scripts目录下增加配置脚本
 4. node mock.js 启动服务即可
 

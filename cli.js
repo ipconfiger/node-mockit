@@ -6,9 +6,16 @@ var path = require('path');
 
 program
 .version('0.0.1')
+.option('-t,--test', 'Print content of test.js, use > to save to file')
 .option('-s,--script [type]', 'Specify path of script [./scripts/test.js]', '')
 .option('-h,--host [type]', 'Specify host path [http://127.0.0.1:25300]', '')
 .parse(process.argv);
+
+if(program.test){
+    fp = fs.readFile("./scripts/test/js");
+    console.log(fp);
+    process.exit(0);
+}
 
 if(program.script==''){
     console.log('Option -s, --script must specified');
