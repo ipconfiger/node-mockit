@@ -8,7 +8,14 @@
 
 ##使用方法
 1. 安装nodejs （必须）
-2. sudo npm install https://github.com/ipconfiger/node-mockit.git -g
+2. 安装node-mockit 
+    
+    sudo npm install https://github.com/ipconfiger/node-mockit.git -g
+    
+  或者
+  
+    sudo npm install node-mockit -g
+   
 3. mkdir ./scripts
 3. cli -e > ./scripts/test.js
 4. mock -s ./scripts  即可启动mock服务端
